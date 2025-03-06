@@ -105,29 +105,11 @@ In the above example, the **publicKey** section uses the **Ed25519** algorithm i
 
 ------
 
-## 5. DID Resolution
+## 5. DID Operations
 
-### 5.1 Resolving a DID
+### 5.1 Create
 
-To resolve a `did:cn` identifier:
-
-1. Extract the second-level domain (e.g., `baidu`) and the hash (e.g., `3f8a1d4d3b5b9f45eaf658b97c0183f23c9fa5a2be1b426d77b7f4e4f3e75a04`).
-2. Query the blockchain to retrieve the DID document associated with the hash.
-3. Verify the authenticity of the DID document by checking the public key and its associated cryptographic signatures.
-
-### 5.2 Verification Process
-
-To verify a `did:cn` DID:
-
-1. Ensure that the public key listed in the DID document matches the one associated with the DID.
-2. Use the public key for authentication purposes (e.g., signing, verifying, or encrypting messages).
-3. Confirm that the DID document has not been tampered with by cross-referencing it with the blockchain.
-
-------
-
-## 6. DID Creation
-
-### 6.1 Domain-to-DID Conversion
+#### 5.1.1  Domain-to-DID Conversion
 
 To create a `did:cn` DID:
 
@@ -137,38 +119,73 @@ To create a `did:cn` DID:
 4. Store the DID document (including the public key in JWK format) on the blockchain.
 5. Form the DID by combining the second-level domain and the hash (e.g., `did:cn:baidu:3f8a1d4d3b5b9f45eaf658b97c0183f23c9fa5a2be1b426d77b7f4e4f3e75a04`).
 
-### 6.2 Blockchain Storage
+#### 5.1.2 Blockchain Storage
 
 The DID document is stored on the blockchain to ensure immutability and verifiability. The blockchain serves as a decentralized ledger, providing a trusted source of truth for the DID and associated metadata.
 
+### 5.2 Read
+
+#### 5.2.1 Resolving a DID
+
+To resolve a `did:cn` identifier:
+
+1. Extract the second-level domain (e.g., `baidu`) and the hash (e.g., `3f8a1d4d3b5b9f45eaf658b97c0183f23c9fa5a2be1b426d77b7f4e4f3e75a04`).
+2. Query the blockchain to retrieve the DID document associated with the hash.
+3. Verify the authenticity of the DID document by checking the public key and its associated cryptographic signatures.
+
+#### 5.2.2 Verification Process
+
+To verify a `did:cn` DID:
+
+1. Ensure that the public key listed in the DID document matches the one associated with the DID.
+2. Use the public key for authentication purposes (e.g., signing, verifying, or encrypting messages).
+3. Confirm that the DID document has not been tampered with by cross-referencing it with the blockchain.
+
+### 5.3 Update
+
+The **Update** operation allows updating the DID document by submitting a new transaction to the blockchain. This typically involves updating the public key or service endpoints. To perform the update:
+
+1. Generate a new public-private key pair.
+2. Submit the new public key or document update to the blockchain.
+3. The updated DID document will be linked to the new transaction hash.
+
+### 5.4 Deactivate
+
+The **Deactivate** operation is used to invalidate a DID. This can be achieved by marking the DID document as inactive on the blockchain, ensuring that the DID and associated keys are no longer usable for authentication or service access.
+
 ------
 
-## 7. Use Cases
+## 6. Use Cases
 
-### 7.1 Domain Name Conversion
+### 6.1 Domain Name Conversion
 
 This method allows for converting `.cn` domain names into DIDs that can be associated with cryptographic identities. For example:
 
 - `did:cn:baidu:3f8a1d4d3b5b9f45eaf658b97c0183f23c9fa5a2be1b426d77b7f4e4f3e75a04` could represent the identity of the domain `baidu.cn`, with the public key and other metadata securely stored on the blockchain.
 
-### 7.2 Blockchain-based Identity Verification
+### 6.2 Blockchain-based Identity Verification
 
 The `did:cn` method is useful for verifying the identity of organizations or entities represented by `.cn` domain names. It ensures that the DID is tamper-proof and verifiable on the blockchain.
 
-### 7.3 Service Access Control
+### 6.3 Service Access Control
 
 By associating public keys with service endpoints in the DID document, access to various services can be authenticated and controlled using blockchain-backed DIDs.
 
 ------
 
-## 8. Security Considerations
+## 7. Security Considerations
 
 - **Public Key Integrity**: The integrity of the public key associated with the DID is ensured by storing it on the blockchain, making it resistant to tampering.
 - **Private Key Protection**: The private key used to generate the DID document must be securely stored and never exposed to unauthorized parties.
 
 ------
 
+## 8. Privacy Considerations
+
+- **Data Minimization**: The DID method should aim to store only the necessary information on the blockchain, such as the public key and the associated service endpoints. Sensitive information should be avoided in the DID document itself.
+- **Blockchain Transparency**: While the blockchain offers immutability and security, it is also public and transparent. This could potentially expose information about DID creation and usage. To mitigate this, off-chain storage can be used for sensitive information, with the DID document linking to the off-chain data in a privacy-preserving way.
+- **Access Control**: Access to the DID and its associated services should be controlled via cryptographic methods, ensuring that only authorized parties can modify or read sensitive data associated with the DID.
+
 ## 9. References
 
 1. W3C DID Specification: https://www.w3.org/TR/did-core/
-2. Blockchain Technology Overview: https://www.coindesk.com/learn/blockchain-101/what-is-blockchain-technology
