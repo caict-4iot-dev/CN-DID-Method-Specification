@@ -171,4 +171,3 @@ By associating public keys with service endpoints in the DID document, access to
 ## 9. References
 
 1. W3C DID Specification: https://www.w3.org/TR/did-core/
-2. Blockchain Technology Overview: https://www.coindesk.com/learn/blockchain-101/what-is-blockchain-technology
